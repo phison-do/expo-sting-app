@@ -1,7 +1,7 @@
 import { Asset } from 'expo-asset';
 import { Image } from 'react-native';
 
-const cacheImages = images => {
+const cacheImages = (images: string[]) => {
   return images.map((image) => {
     if (typeof image === 'string') {
       return Image.prefetch(image);
