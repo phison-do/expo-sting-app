@@ -1,53 +1,62 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
-  Button,
   Text,
   View,
   FlatList,
   Pressable,
   StyleSheet,
+  Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { HomeScreenNavigationProp } from './types';
-
-import { DetailsScreen } from './DetailScreen';
 import { HomeStackNavigatorParamList } from './types';
+import { HomeScreenNavigationProp } from './types';
 import { HOMESTACK_DATA } from './mocks';
+import { HomeDetailsScreen } from './HomeDetailScreen';
 
 const HomeStack = createStackNavigator<HomeStackNavigatorParamList>();
+
+const styles = StyleSheet.create({
+  image: {
+    width: '100%',
+    height: 200,
+  },
+  title: {
+    fontSize: 18,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+  },
+});
 
 export const HomeScreen = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
-  const renderListItems = ({ item }) => {
+  const renderListItems = ({ item }: any) => {
     return (
-      <Pressable
-        onPress={() =>
-          navigation.navigate('Details', {
-            name: item.name,
-            birthYear: item.birth_year,
-          })
-        }
+      <View
+        style={{
+          borderWidth: StyleSheet.hairlineWidth,
+          borderColor: '#ccc',
+        }}
       >
-        <Text
-          style={{ fontSize: 18, paddingHorizontal: 12, paddingVertical: 12 }}
+        <Pressable
+          onPress={() =>
+            navigation.navigate('Details', {
+              name: item.name,
+            })
+          }
         >
-          {item.name}
-        </Text>
-        <View
-          style={{
-            borderWidth: StyleSheet.hairlineWidth,
-            borderColor: '#ccc',
-          }}
-        />
-      </Pressable>
+          <Text style={styles.title}>{item.name}</Text>
+          {item.img && (
+            <Image source={{ uri: item.img }} style={styles.image} />
+          )}
+        </Pressable>
+      </View>
     );
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home screen</Text>
+    <View style={{ flex: 1 }}>
       <FlatList data={HOMESTACK_DATA} renderItem={renderListItems} />
     </View>
   );
@@ -62,6 +71,21 @@ export const HomeStackScreen = () => {
         options={{
           headerShown: false,
         }}
+      />
+      <HomeStack.Screen
+        name='Details'
+        component={HomeDetailsScreen}
+        options={({ route }) => ({
+          title: route.params.name,
+          headerBackTitle: 'Back',
+          // headerStyle: {
+          //   backgroundColor: '#18181B',
+          //   headerTintColor: '#fff',
+          //   headerTitleStyle: {
+          //     fontWeight: 'bold',
+          //   },
+          // },
+        })}
       />
     </HomeStack.Navigator>
   );

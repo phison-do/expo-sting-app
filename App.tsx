@@ -10,6 +10,7 @@ import HeartIcon from './assets/icons/heart.svg';
 import CartIcon from './assets/icons/cart.svg';
 import AccountIcon from './assets/icons/account.svg';
 import CategoriesIcon from './assets/icons/categories.svg';
+import LogoBlack from './assets/logo-black.svg';
 import { AnimatedAppLoader } from './src/components/splashScreen';
 
 const PlaceholderImage = require('./assets/splash-screen.png');
@@ -32,6 +33,7 @@ const MainScreen = () => {
           name='Home'
           component={HomeStackScreen}
           options={{
+            headerTitle: () => <LogoBlack height={16} color={'#000'} />,
             tabBarIcon: ({ focused }) => (
               <Logo width={24} color={focused ? '#000' : '#ccc'} />
             ),

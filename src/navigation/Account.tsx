@@ -1,46 +1,47 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Button, Text, View } from 'react-native';
+import { Button, Pressable, StyleSheet, Text, View } from 'react-native';
 import { DetailsScreen } from './DetailScreen';
 import { useNavigation } from '@react-navigation/native';
+import { ACCOUNT_DATA } from './mocks';
+import { FlatList } from 'react-native-gesture-handler';
+import {
+  AccountScreenNavigationProp,
+  AccountStackNavigatorParamList,
+} from './types';
 
-type RootStackParamList = {
-  Home: undefined;
-  Profile: { userId: string };
-  Details: string;
-};
-
-const AccountStack = createStackNavigator<RootStackParamList>();
+const AccountStack = createStackNavigator<AccountStackNavigatorParamList>();
 
 export const AccountScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<AccountScreenNavigationProp>();
+
+  const renderListItems = ({ item }: any) => {
+    return (
+      <Pressable
+        onPress={() =>
+          navigation.navigate('Details', {
+            name: item.name,
+          })
+        }
+      >
+        <Text
+          style={{ fontSize: 18, paddingHorizontal: 12, paddingVertical: 12 }}
+        >
+          {item.name}
+        </Text>
+        <View
+          style={{
+            borderWidth: StyleSheet.hairlineWidth,
+            borderColor: '#ccc',
+          }}
+        />
+      </Pressable>
+    );
+  };
+
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Welkom</Text>
-      <Button
-        title='Mijn Bestellingen'
-        onPress={() => navigation.navigate('Details')}
-      />
-      <Button
-        title='Mijn retouren'
-        onPress={() => navigation.navigate('Details')}
-      />
-      <Button
-        title='Mijn profiel'
-        onPress={() => navigation.navigate('Details')}
-      />
-      <Button
-        title='Beoordeel onze app'
-        onPress={() => navigation.navigate('Details')}
-      />
-      <Button
-        title='Klantenservice'
-        onPress={() => navigation.navigate('Details')}
-      />
-      <Button
-        title='Gebruiksvoorwaarden'
-        onPress={() => navigation.navigate('Details')}
-      />
+    <View style={{ flex: 1, padding: 24 }}>
+      <FlatList data={ACCOUNT_DATA} renderItem={renderListItems} />
     </View>
   );
 };
