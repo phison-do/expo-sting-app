@@ -12,6 +12,13 @@ import AccountIcon from './assets/icons/account.svg';
 import CategoriesIcon from './assets/icons/categories.svg';
 import LogoBlack from './assets/logo-black.svg';
 import { AnimatedAppLoader } from './src/components/splashScreen';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+// Initialize Apollo Client
+const client = new ApolloClient({
+  uri: 'https://sfcc-graphql-oin4zm57wq-ew.a.run.app/graphql',
+  cache: new InMemoryCache(),
+});
 
 const PlaceholderImage = require('./assets/splash-screen.png');
 
@@ -19,9 +26,11 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <AnimatedAppLoader image={PlaceholderImage}>
-      <MainScreen />
-    </AnimatedAppLoader>
+    <ApolloProvider client={client}>
+      <AnimatedAppLoader image={PlaceholderImage}>
+        <MainScreen />
+      </AnimatedAppLoader>
+    </ApolloProvider>
   );
 }
 

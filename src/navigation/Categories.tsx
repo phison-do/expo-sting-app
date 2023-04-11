@@ -1,20 +1,34 @@
 import React from 'react';
+import { useQuery } from '@apollo/client';
+import { CATEGORIES_QUERY } from './../queries/categories';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Button, Pressable, Text, View, StyleSheet } from 'react-native';
+import { Pressable, Text, View, StyleSheet } from 'react-native';
 import { DetailsScreen } from './DetailScreen';
-import { CATEGORIES_DATA } from './mocks';
 import { FlatList } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import {
   CategoriesScreenNavigationProp,
   CategoriesStackNavigatorParamList,
 } from './types';
+import { ListerScreen } from './ListerScreen';
 
 const CategoriesStack =
   createStackNavigator<CategoriesStackNavigatorParamList>();
 
 export const CategoriesScreen = () => {
+  const { data, loading } = useQuery(CATEGORIES_QUERY);
   const navigation = useNavigation<CategoriesScreenNavigationProp>();
+
+  if (loading)
+    return (
+      <Text
+        style={{ fontSize: 18, paddingHorizontal: 12, paddingVertical: 12 }}
+      >
+        Loading
+      </Text>
+    );
+
+  if (!data) return null;
 
   const renderListItems = ({ item }: any) => {
     return (
@@ -42,7 +56,10 @@ export const CategoriesScreen = () => {
 
   return (
     <View style={{ flex: 1, padding: 24 }}>
-      <FlatList data={CATEGORIES_DATA} renderItem={renderListItems} />
+      <FlatList
+        data={data.categories.data[0].categories}
+        renderItem={renderListItems}
+      />
     </View>
   );
 };
@@ -57,7 +74,14 @@ export const CategoriesStackScreen = () => {
           headerShown: false,
         }}
       />
-      <CategoriesStack.Screen name='Details' component={DetailsScreen} />
+      <CategoriesStack.Screen
+        name='Details'
+        component={ListerScreen}
+        options={({ route }) => ({
+          title: route.params.name,
+          headerBackTitle: 'Back',
+        })}
+      />
     </CategoriesStack.Navigator>
   );
 };

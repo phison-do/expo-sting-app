@@ -2,7 +2,7 @@
   "compilerOptions": {
     "strict": true,
     "module": "es6",
-    "moduleResolution": "nodenext"
+    // "moduleResolution": "nodenext"
   },
   "include": ["**/*.ts", "**/*.tsx", "images.d.ts"],
   "extends": "expo/tsconfig.base"
