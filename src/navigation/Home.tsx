@@ -12,7 +12,6 @@ import { useNavigation } from '@react-navigation/native';
 import { HomeStackNavigatorParamList } from './types';
 import { HomeScreenNavigationProp } from './types';
 import { HOMESTACK_DATA } from './mocks';
-import { HomeDetailsScreen } from './HomeDetailScreen';
 
 const HomeStack = createStackNavigator<HomeStackNavigatorParamList>();
 
@@ -72,7 +71,7 @@ export const HomeStackScreen = () => {
           headerShown: false,
         }}
       />
-      <HomeStack.Screen
+      {/* <HomeStack.Screen
         name='Details'
         component={HomeDetailsScreen}
         options={({ route }) => ({
@@ -86,7 +85,7 @@ export const HomeStackScreen = () => {
           //   },
           // },
         })}
-      />
+      /> */}
     </HomeStack.Navigator>
   );
 };

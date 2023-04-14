@@ -15,14 +15,30 @@ export type HomeScreenNavigationProp = NativeStackNavigationProp<
 
 export type CategoriesStackNavigatorParamList = {
   CategoriesScreen: undefined;
-  Details: {
+  Lister: {
+    name: string;
+    category: string;
+  };
+  ProductDetail: {
     name: string;
   };
 };
 
 export type CategoriesScreenNavigationProp = NativeStackNavigationProp<
   CategoriesStackNavigatorParamList,
-  'Details'
+  'Lister'
+>;
+
+export type ListerStackNavigatorParamList = {
+  ListerScreen: undefined;
+  ProductDetail: {
+    id: string;
+  };
+};
+
+export type ListerScreenNavigationProp = NativeStackNavigationProp<
+  ListerStackNavigatorParamList,
+  'ProductDetail'
 >;
 
 export type AccountStackNavigatorParamList = {
@@ -35,4 +51,17 @@ export type AccountStackNavigatorParamList = {
 export type AccountScreenNavigationProp = NativeStackNavigationProp<
   AccountStackNavigatorParamList,
   'Details'
+>;
+
+export type ProductDetailStackNavigatorParamList = {
+  ProductDetailScreen: undefined;
+  ProductDetail: {
+    name: string;
+    id: string;
+  };
+};
+
+export type ProductDetailScreenNavigationProp = NativeStackNavigationProp<
+  ProductDetailStackNavigatorParamList,
+  'ProductDetail'
 >;

@@ -42,9 +42,9 @@ const MainScreen = () => {
           name='Home'
           component={HomeStackScreen}
           options={{
-            headerTitle: () => <LogoBlack height={16} color={'#000'} />,
+            headerTitle: () => <LogoBlack height={16} color={'#18181B'} />,
             tabBarIcon: ({ focused }) => (
-              <Logo width={24} color={focused ? '#000' : '#ccc'} />
+              <Logo width={24} color={focused ? '#18181B' : '#ccc'} />
             ),
           }}
         />
@@ -53,7 +53,7 @@ const MainScreen = () => {
           component={CategoriesStackScreen}
           options={{
             tabBarIcon: ({ focused }) => (
-              <CategoriesIcon width={24} color={focused ? '#000' : '#ccc'} />
+              <CategoriesIcon width={24} color={focused ? '#18181B' : '#ccc'} />
             ),
           }}
         />
@@ -62,7 +62,7 @@ const MainScreen = () => {
           component={CartStackScreen}
           options={{
             tabBarIcon: ({ focused }) => (
-              <CartIcon width={24} color={focused ? '#000' : '#ccc'} />
+              <CartIcon width={24} color={focused ? '#18181B' : '#ccc'} />
             ),
           }}
         />
@@ -71,7 +71,7 @@ const MainScreen = () => {
           component={WishlistStackScreen}
           options={{
             tabBarIcon: ({ focused }) => (
-              <HeartIcon width={24} color={focused ? '#000' : '#ccc'} />
+              <HeartIcon width={24} color={focused ? '#18181B' : '#ccc'} />
             ),
           }}
         />
@@ -80,7 +80,7 @@ const MainScreen = () => {
           component={AccountStackScreen}
           options={{
             tabBarIcon: ({ focused }) => (
-              <AccountIcon width={24} color={focused ? '#000' : '#ccc'} />
+              <AccountIcon width={24} color={focused ? '#18181B' : '#ccc'} />
             ),
           }}
         />
