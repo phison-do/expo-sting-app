@@ -25,7 +25,7 @@ export const ProductDetail = ({ route }) => {
   const imageWidth = dimensions.width;
 
   return (
-    <>
+    <ScrollView>
       <ScrollView
         horizontal={true}
         showsHorizontalScrollIndicator={true}
@@ -80,6 +80,6 @@ export const ProductDetail = ({ route }) => {
           {product.long_description}
         </Text>
       </View>
-    </>
+    </ScrollView>
   );
 };

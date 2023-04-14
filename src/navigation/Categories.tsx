@@ -66,26 +66,29 @@ export const CategoriesStackScreen = () => {
       <CategoriesStack.Screen
         name='CategoriesScreen'
         component={CategoriesScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <CategoriesStack.Screen
-        name='Lister'
-        component={ListerPage}
         options={({ route }) => ({
-          title: route.params.name,
-          headerBackTitle: 'Back',
+          headerTitle: 'Categories',
+          // headerShown: true,
         })}
       />
-      <CategoriesStack.Screen
-        name='ProductDetail'
-        component={ProductDetail}
-        options={({ route }) => ({
-          title: route.params.name,
-          headerBackTitle: 'Back',
-        })}
-      />
+      <CategoriesStack.Group>
+        <CategoriesStack.Screen
+          name='Lister'
+          component={ListerPage}
+          options={({ route }) => ({
+            title: route.params.name,
+            headerBackTitle: 'Back',
+          })}
+        />
+        <CategoriesStack.Screen
+          name='ProductDetail'
+          component={ProductDetail}
+          options={({ route }) => ({
+            title: route.params.name,
+            headerBackTitle: 'Back',
+          })}
+        />
+      </CategoriesStack.Group>
     </CategoriesStack.Navigator>
   );
 };

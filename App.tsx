@@ -52,6 +52,7 @@ const MainScreen = () => {
           name='Categories'
           component={CategoriesStackScreen}
           options={{
+            headerShown: false,
             tabBarIcon: ({ focused }) => (
               <CategoriesIcon width={24} color={focused ? '#18181B' : '#ccc'} />
             ),

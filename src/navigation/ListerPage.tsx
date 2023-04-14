@@ -43,6 +43,7 @@ export const ListerPage = ({ route }) => {
         <Pressable
           onPress={() =>
             navigation.navigate('ProductDetail', {
+              name: item.product_name,
               id: item.product_id,
             })
           }

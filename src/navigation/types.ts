@@ -32,6 +32,7 @@ export type CategoriesScreenNavigationProp = NativeStackNavigationProp<
 export type ListerStackNavigatorParamList = {
   ListerScreen: undefined;
   ProductDetail: {
+    name: string;
     id: string;
   };
 };
