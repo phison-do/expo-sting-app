@@ -90,7 +90,7 @@ export const AnimatedSplashScreen: FC<AnimatedAppLoaderProps> = ({
           style={[
             StyleSheet.absoluteFill,
             {
-              backgroundColor: '#18181B',
+              backgroundColor: '#ffffff',
               opacity: animation,
             },
           ]}

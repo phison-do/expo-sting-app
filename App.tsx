@@ -5,7 +5,7 @@ import { CartStackScreen } from './src/navigation/Cart';
 import { WishlistStackScreen } from './src/navigation/Wishlist';
 import { HomeStackScreen } from './src/navigation/Home';
 import { CategoriesStackScreen } from './src/navigation/Categories';
-import Logo from './assets/icons/sting-icon.svg';
+import Logo from './assets/icons/costes-icon.svg';
 import HeartIcon from './assets/icons/heart.svg';
 import CartIcon from './assets/icons/cart.svg';
 import AccountIcon from './assets/icons/account.svg';
@@ -20,7 +20,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const PlaceholderImage = require('./assets/splash-screen.png');
+const PlaceholderImage = require('./assets/splash-screen-costes.png');
 
 const Tab = createBottomTabNavigator();
 

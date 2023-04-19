@@ -71,21 +71,6 @@ export const HomeStackScreen = () => {
           headerShown: false,
         }}
       />
-      {/* <HomeStack.Screen
-        name='Details'
-        component={HomeDetailsScreen}
-        options={({ route }) => ({
-          title: route.params.name,
-          headerBackTitle: 'Back',
-          // headerStyle: {
-          //   backgroundColor: '#18181B',
-          //   headerTintColor: '#fff',
-          //   headerTitleStyle: {
-          //     fontWeight: 'bold',
-          //   },
-          // },
-        })}
-      /> */}
     </HomeStack.Navigator>
   );
 };

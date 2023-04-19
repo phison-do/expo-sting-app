@@ -1,10 +1,10 @@
 export default ({ config }) => ({
   ...config,
-  icon:
-    "https://github.com/expo/expo/blob/master/templates/expo-template-blank/assets/icon.png?raw=true",
+  // icon:
+  //   "https://github.com/expo/expo/blob/master/templates/expo-template-blank/assets/icon.png?raw=true",
   splash: {
-    image: "./assets/splash-screen.png",
+    image: "./assets/splash-screen-costes.png",
     resizeMode: "contain",
-    backgroundColor: "#18181B",
+    backgroundColor: "#ffffff",
   },
 });
