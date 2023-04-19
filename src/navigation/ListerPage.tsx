@@ -50,7 +50,9 @@ export const ListerPage = ({ route }) => {
         >
           <Image
             resizeMode='cover'
-            source={{ uri: item.image.link }}
+            source={{
+              uri: `${item.image.link}?f=width:${imageWidth}/quality:100`,
+            }}
             style={{ width: imageWidth, height: 450 }}
           />
           <View

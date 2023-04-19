@@ -1,5 +1,14 @@
 import React from 'react';
-import { Dimensions, Image, ScrollView, Text, View } from 'react-native';
+import {
+  Button,
+  Dimensions,
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 // import { useNavigation } from '@react-navigation/native';
 import { useQuery } from '@apollo/client';
 import { PRODUCT_QUERY } from '../queries/productDetail';
@@ -25,7 +34,7 @@ export const ProductDetail = ({ route }) => {
   const imageWidth = dimensions.width;
 
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: '#fff' }}>
       <ScrollView
         horizontal={true}
         showsHorizontalScrollIndicator={true}
@@ -36,10 +45,12 @@ export const ProductDetail = ({ route }) => {
         {product.image_groups[0].images.map((image: ImageType) => {
           return (
             <Image
-              resizeMode='contain'
+              // resizeMode='contain'
               key={image.link}
-              source={{ uri: image.link }}
-              style={{ width: imageWidth, height: 560 }}
+              source={{
+                uri: `${image.link}?f=width:${imageWidth}/quality:100`,
+              }}
+              style={{ width: imageWidth, height: 450 }}
             />
           );
         })}
@@ -50,7 +61,7 @@ export const ProductDetail = ({ route }) => {
           flexDirection: 'row',
           justifyContent: 'space-between',
           paddingHorizontal: 12,
-          paddingTop: 12,
+          paddingVertical: 12,
         }}
       >
         <Text
@@ -79,7 +90,30 @@ export const ProductDetail = ({ route }) => {
         >
           {product.long_description}
         </Text>
+        <Pressable style={styles.button}>
+          <Text style={styles.text}>Toevoegen aan winkelwagen</Text>
+        </Pressable>
       </View>
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: 'black',
+    marginVertical: 24,
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
+  },
+});
