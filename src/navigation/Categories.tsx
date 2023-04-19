@@ -3,14 +3,15 @@ import { useQuery } from '@apollo/client';
 import { CATEGORIES_QUERY } from './../queries/categories';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Pressable, Text, View, StyleSheet } from 'react-native';
-import { DetailsScreen } from './DetailScreen';
 import { FlatList } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import {
   CategoriesScreenNavigationProp,
   CategoriesStackNavigatorParamList,
 } from './types';
-import { ListerScreen } from './ListerScreen';
+import { ListerPage } from './ListerPage';
+import { ProductDetail } from './ProductDetail';
+import { Loader } from '../components/loader';
 
 const CategoriesStack =
   createStackNavigator<CategoriesStackNavigatorParamList>();
@@ -19,43 +20,38 @@ export const CategoriesScreen = () => {
   const { data, loading } = useQuery(CATEGORIES_QUERY);
   const navigation = useNavigation<CategoriesScreenNavigationProp>();
 
-  if (loading)
-    return (
-      <Text
-        style={{ fontSize: 18, paddingHorizontal: 12, paddingVertical: 12 }}
-      >
-        Loading
-      </Text>
-    );
-
+  if (loading) return <Loader />;
   if (!data) return null;
 
   const renderListItems = ({ item }: any) => {
     return (
-      <Pressable
-        onPress={() =>
-          navigation.navigate('Details', {
-            name: item.name,
-          })
-        }
+      <View
+        style={{
+          borderBottomWidth: StyleSheet.hairlineWidth,
+          borderColor: '#ccc',
+          marginHorizontal: 24,
+        }}
       >
-        <Text
-          style={{ fontSize: 18, paddingHorizontal: 12, paddingVertical: 12 }}
+        <Pressable
+          onPress={() =>
+            navigation.navigate('Lister', {
+              name: item.name,
+              category: item.id,
+            })
+          }
         >
-          {item.name}
-        </Text>
-        <View
-          style={{
-            borderWidth: StyleSheet.hairlineWidth,
-            borderColor: '#ccc',
-          }}
-        />
-      </Pressable>
+          <Text
+            style={{ fontSize: 18, paddingHorizontal: 12, paddingVertical: 12 }}
+          >
+            {item.name}
+          </Text>
+        </Pressable>
+      </View>
     );
   };
 
   return (
-    <View style={{ flex: 1, padding: 24 }}>
+    <View style={{ flex: 1, paddingVertical: 24 }}>
       <FlatList
         data={data.categories.data[0].categories}
         renderItem={renderListItems}
@@ -70,18 +66,29 @@ export const CategoriesStackScreen = () => {
       <CategoriesStack.Screen
         name='CategoriesScreen'
         component={CategoriesScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <CategoriesStack.Screen
-        name='Details'
-        component={ListerScreen}
         options={({ route }) => ({
-          title: route.params.name,
-          headerBackTitle: 'Back',
+          headerTitle: 'Categories',
+          // headerShown: true,
         })}
       />
+      <CategoriesStack.Group>
+        <CategoriesStack.Screen
+          name='Lister'
+          component={ListerPage}
+          options={({ route }) => ({
+            title: route.params.name,
+            headerBackTitle: 'Back',
+          })}
+        />
+        <CategoriesStack.Screen
+          name='ProductDetail'
+          component={ProductDetail}
+          options={({ route }) => ({
+            title: route.params.name,
+            headerBackTitle: 'Back',
+          })}
+        />
+      </CategoriesStack.Group>
     </CategoriesStack.Navigator>
   );
 };

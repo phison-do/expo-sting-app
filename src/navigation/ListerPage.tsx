@@ -1,51 +1,66 @@
 import React from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
-import { RouteProp, useNavigation } from '@react-navigation/native';
+import {
+  ActivityIndicator,
+  Dimensions,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useQuery } from '@apollo/client';
-import { LISTER_QUERY } from './../queries/lister';
+import { LISTER_QUERY } from '../queries/lister';
 import { FlatList } from 'react-native-gesture-handler';
+import {
+  ListerScreenNavigationProp,
+  ListerStackNavigatorParamList,
+} from './types';
+import { Loader } from '../components/loader';
 
-// route = RouteProp<{ params: { name: string } }, 'params'
+export const ListerPage = ({ route }) => {
+  const { data, loading } = useQuery(LISTER_QUERY, {
+    variables: { id: route.params.category },
+  });
 
-export const ListerScreen = ({ route }) => {
-  const { data, loading } = useQuery(LISTER_QUERY);
-  const navigation = useNavigation();
+  const navigation = useNavigation<ListerScreenNavigationProp>();
 
-  if (loading)
-    return (
-      <Text
-        style={{ fontSize: 18, paddingHorizontal: 12, paddingVertical: 12 }}
-      >
-        Loading
-      </Text>
-    );
-
+  if (loading) return <Loader />;
   if (!data) return null;
 
+  const dimensions = Dimensions.get('window');
+  const imageWidth = dimensions.width;
+
   const renderListItems = ({ item }: any) => {
+    console.log('LISTERSCREEN', item);
     return (
       <View
         style={{
-          flex: 1,
           borderWidth: StyleSheet.hairlineWidth,
           borderColor: '#ccc',
         }}
       >
         <Pressable
           onPress={() =>
-            navigation.navigate('Details', {
+            navigation.navigate('ProductDetail', {
               name: item.product_name,
-              id: item.id,
+              id: item.product_id,
             })
           }
         >
           <Image
-            source={{ uri: item.image.link }}
-            style={{ width: '100%', height: 600 }}
+            resizeMode='cover'
+            source={{
+              uri: `${item.image.link}?f=width:${imageWidth}/quality:100`,
+            }}
+            style={{ width: imageWidth, height: 450 }}
           />
           <View
             style={{
+              backgroundColor: '#fff',
               flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
               borderWidth: StyleSheet.hairlineWidth,
               borderColor: '#ccc',
               paddingHorizontal: 12,
@@ -68,11 +83,7 @@ export const ListerScreen = ({ route }) => {
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-      }}
-    >
+    <View style={{ flex: 1 }}>
       <FlatList data={data.productSearch.hits} renderItem={renderListItems} />
     </View>
   );
