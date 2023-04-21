@@ -1,6 +1,4 @@
-import React from 'react';
 import {
-  Button,
   Dimensions,
   Image,
   Pressable,
@@ -9,22 +7,19 @@ import {
   Text,
   View,
 } from 'react-native';
-// import { useNavigation } from '@react-navigation/native';
 import { useQuery } from '@apollo/client';
 import { PRODUCT_QUERY } from '../queries/productDetail';
-// import { ProductDetailScreenNavigationProp } from './types';
 import { Loader } from '../components/loader';
+import HeartIcon from './../../assets/icons/heart.svg';
+import { ImageType } from './types';
+import { useCart } from '../context/cartData';
 
-type ImageType = {
-  link: string;
-};
+export const ProductDetail = ({ route }: any) => {
+  const { cartData, updateCart, updateWishlist } = useCart();
 
-export const ProductDetail = ({ route }) => {
   const { data, loading } = useQuery(PRODUCT_QUERY, {
     variables: { productId: route.params.id },
   });
-
-  // const navigation = useNavigation<ProductDetailScreenNavigationProp>();
 
   if (loading) return <Loader />;
   if (!data) return null;
@@ -32,6 +27,26 @@ export const ProductDetail = ({ route }) => {
   const product = data.product;
   const dimensions = Dimensions.get('window');
   const imageWidth = dimensions.width;
+
+  const addToCart = () => {
+    const productCart = {
+      id: route.params.id,
+      image: product.image_groups[0].images[0],
+      name: product.name,
+      price: product.price,
+    };
+    updateCart(productCart);
+  };
+
+  const addToWishlist = () => {
+    const productCart = {
+      id: route.params.id,
+      image: product.image_groups[0].images[0],
+      name: product.name,
+      price: product.price,
+    };
+    updateWishlist(productCart);
+  };
 
   return (
     <ScrollView style={{ backgroundColor: '#fff' }}>
@@ -67,12 +82,12 @@ export const ProductDetail = ({ route }) => {
         <Text
           style={{
             flexDirection: 'column',
-            fontSize: 18,
+            fontSize: 16,
           }}
         >
           {product.name}
         </Text>
-        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+        <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
           € {product.price}
         </Text>
       </View>
@@ -85,35 +100,69 @@ export const ProductDetail = ({ route }) => {
       >
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 14,
+            fontWeight: '300',
           }}
         >
           {product.long_description}
         </Text>
-        <Pressable style={styles.button}>
-          <Text style={styles.text}>Toevoegen aan winkelwagen</Text>
-        </Pressable>
+        <View style={styles.buttonContainer}>
+          <Pressable
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed ? 'rgb(64, 64, 64)' : '#000000',
+              },
+              styles.button,
+            ]}
+            onPress={addToCart}
+          >
+            <Text style={styles.text}>Voeg toe aan winkelwagen</Text>
+          </Pressable>
+          <Pressable style={styles.wishlist} onPress={addToWishlist}>
+            <Text style={styles.text}>
+              {' '}
+              <HeartIcon width={24} color={'#ccc'} />
+            </Text>
+          </Pressable>
+        </View>
       </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: 'black',
-    marginVertical: 24,
-  },
   text: {
-    fontSize: 16,
+    fontSize: 14,
     lineHeight: 21,
     fontWeight: 'bold',
     letterSpacing: 0.25,
     color: 'white',
+    textTransform: 'uppercase',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    gap: 12,
+    marginVertical: 24,
+    alignItems: 'center',
+  },
+  wishlist: {
+    margin: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    paddingRight: 14,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: 'black',
+  },
+  button: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 4,
+    elevation: 3,
   },
 });

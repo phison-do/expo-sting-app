@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import { CATEGORIES_QUERY } from './../queries/categories';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Pressable, Text, View, StyleSheet } from 'react-native';
+import { Pressable, Text, View, StyleSheet, ScrollView } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import {
@@ -22,14 +22,14 @@ export const CategoriesScreen = () => {
 
   if (loading) return <Loader />;
   if (!data) return null;
-
+  console.log(data.categories.data[0].categories);
   const renderListItems = ({ item }: any) => {
     return (
-      <View
+      <ScrollView
         style={{
           borderBottomWidth: StyleSheet.hairlineWidth,
           borderColor: '#ccc',
-          marginHorizontal: 24,
+          marginHorizontal: 12,
         }}
       >
         <Pressable
@@ -41,17 +41,22 @@ export const CategoriesScreen = () => {
           }
         >
           <Text
-            style={{ fontSize: 18, paddingHorizontal: 12, paddingVertical: 12 }}
+            style={{ fontSize: 14, paddingHorizontal: 12, paddingVertical: 12 }}
           >
             {item.name}
           </Text>
         </Pressable>
-      </View>
+      </ScrollView>
     );
   };
 
   return (
-    <View style={{ flex: 1, paddingVertical: 24 }}>
+    <View
+      style={{
+        backgroundColor: '#fff',
+        paddingVertical: 24,
+      }}
+    >
       <FlatList
         data={data.categories.data[0].categories}
         renderItem={renderListItems}

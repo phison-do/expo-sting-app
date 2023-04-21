@@ -66,3 +66,14 @@ export type ProductDetailScreenNavigationProp = NativeStackNavigationProp<
   ProductDetailStackNavigatorParamList,
   'ProductDetail'
 >;
+
+export type ImageType = {
+  link: string;
+};
+
+export type ProductCart = {
+  id: string;
+  image: string;
+  name: string;
+  price: string;
+};

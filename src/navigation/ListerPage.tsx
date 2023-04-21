@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  ActivityIndicator,
   Dimensions,
   Image,
   Pressable,
@@ -12,10 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useQuery } from '@apollo/client';
 import { LISTER_QUERY } from '../queries/lister';
 import { FlatList } from 'react-native-gesture-handler';
-import {
-  ListerScreenNavigationProp,
-  ListerStackNavigatorParamList,
-} from './types';
+import { ListerScreenNavigationProp } from './types';
 import { Loader } from '../components/loader';
 
 export const ListerPage = ({ route }) => {
@@ -28,18 +24,9 @@ export const ListerPage = ({ route }) => {
   if (loading) return <Loader />;
   if (!data) return null;
 
-  const dimensions = Dimensions.get('window');
-  const imageWidth = dimensions.width;
-
   const renderListItems = ({ item }: any) => {
-    console.log('LISTERSCREEN', item);
     return (
-      <View
-        style={{
-          borderWidth: StyleSheet.hairlineWidth,
-          borderColor: '#ccc',
-        }}
-      >
+      <View style={styles.container}>
         <Pressable
           onPress={() =>
             navigation.navigate('ProductDetail', {
@@ -53,29 +40,11 @@ export const ListerPage = ({ route }) => {
             source={{
               uri: `${item.image.link}?f=width:${imageWidth}/quality:100`,
             }}
-            style={{ width: imageWidth, height: 450 }}
+            style={styles.image}
           />
-          <View
-            style={{
-              backgroundColor: '#fff',
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              borderWidth: StyleSheet.hairlineWidth,
-              borderColor: '#ccc',
-              paddingHorizontal: 12,
-              paddingVertical: 12,
-            }}
-          >
-            <Text
-              style={{
-                flexDirection: 'column',
-                fontSize: 18,
-              }}
-            >
-              {item.product_name}
-            </Text>
-            <Text style={{ fontSize: 18 }}>€ {item.price}</Text>
+          <View style={styles.title}>
+            <Text style={styles.productTitle}>{item.product_name}</Text>
+            <Text style={styles.price}>€ {item.price}</Text>
           </View>
         </Pressable>
       </View>
@@ -83,8 +52,47 @@ export const ListerPage = ({ route }) => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      <FlatList data={data.productSearch.hits} renderItem={renderListItems} />
+    <View style={styles.wrapper}>
+      <FlatList
+        data={data.productSearch.hits}
+        renderItem={renderListItems}
+        numColumns={2}
+      />
     </View>
   );
 };
+
+const dimensions = Dimensions.get('window');
+const imageWidth = dimensions.width;
+
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    padding: 8,
+    backgroundColor: '#ffffff',
+  },
+  container: {
+    borderColor: '#ccc',
+    flex: 1,
+    justifyContent: 'space-between',
+    padding: 8,
+  },
+  image: {
+    flex: 1,
+    height: 240,
+  },
+  title: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    fontSize: 14,
+    paddingVertical: 12,
+  },
+  productTitle: {
+    flex: 1,
+  },
+  price: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+});
