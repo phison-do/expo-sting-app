@@ -24,15 +24,19 @@ const CartContext = createContext(defaultContext);
 
 export const useCart = () => useContext(CartContext);
 
+//@todo: removeitem from cart/wishlist
+
 export const CartContextProvider = ({ children }: any) => {
   const [cartData, setCartData] = useState<ProductCart[]>([]);
   const [wishlistData, setWishlistData] = useState<ProductCart[]>([]);
 
   const updateCart = (data: ProductCart) => {
+    setData(data);
     setCartData([...cartData, data]);
   };
 
   const updateWishlist = (data: ProductCart) => {
+    setWishListData(data);
     setWishlistData([...wishlistData, data]);
   };
 
@@ -54,27 +58,36 @@ export const CartContextProvider = ({ children }: any) => {
     }
   };
 
-  // const setData = useCallback(async (data: ProductCart) => {
-  //   const newList = [...cartData, data];
-  //   try {
-  //     await AsyncStorage.setItem('@cart', JSON.stringify(newList));
-  //   } catch (e) {
-  //     // saving error
-  //   }
-  // }, []);
+  const setData = async (data: ProductCart) => {
+    const newList = [...cartData, data];
+    try {
+      await AsyncStorage.setItem('@cart', JSON.stringify(newList));
+    } catch (e) {
+      // saving error
+    }
+  };
+
+  const setWishListData = async (data: ProductCart) => {
+    const newList = [...wishlistData, data];
+    try {
+      await AsyncStorage.setItem('@wishlist', JSON.stringify(newList));
+    } catch (e) {
+      // saving error
+    }
+  };
 
   const getData = async () => {
     let products;
 
     try {
       const existingProducts = await AsyncStorage.getItem('@cart');
+
       if (!existingProducts) return;
 
       products = JSON.parse(existingProducts as string);
     } catch (e) {
       // saving error
     }
-
     setCartData(products);
   };
 
@@ -90,7 +103,7 @@ export const CartContextProvider = ({ children }: any) => {
       // saving error
     }
 
-    setCartData(products);
+    setWishlistData(products);
   };
 
   useEffect(() => {

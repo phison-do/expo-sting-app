@@ -13,7 +13,7 @@ const CartStack = createStackNavigator();
 
 export const CartScreen = ({ navigation }: any) => {
   const { cartData, clearCart } = useCart();
-  console.log('CART', cartData);
+
   if (!cartData?.length)
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
