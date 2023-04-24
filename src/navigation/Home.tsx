@@ -15,29 +15,12 @@ import { HOMESTACK_DATA } from './mocks';
 
 const HomeStack = createStackNavigator<HomeStackNavigatorParamList>();
 
-const styles = StyleSheet.create({
-  image: {
-    width: '100%',
-    height: 200,
-  },
-  title: {
-    fontSize: 18,
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-  },
-});
-
 export const HomeScreen = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const renderListItems = ({ item }: any) => {
     return (
-      <View
-        style={{
-          borderWidth: StyleSheet.hairlineWidth,
-          borderColor: '#ccc',
-        }}
-      >
+      <View style={styles.itemWrapper}>
         <Pressable
           onPress={() =>
             navigation.navigate('Details', {
@@ -74,3 +57,19 @@ export const HomeStackScreen = () => {
     </HomeStack.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  image: {
+    width: '100%',
+    height: 200,
+  },
+  title: {
+    fontSize: 18,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+  },
+  itemWrapper: {
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: '#ccc',
+  },
+});

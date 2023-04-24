@@ -16,17 +16,8 @@ export const CartScreen = ({ navigation }: any) => {
 
   if (!cartData?.length)
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text
-          style={{
-            color: 'black',
-            fontSize: 30,
-            marginBottom: 15,
-            fontWeight: 'bold',
-          }}
-        >
-          Uw winkelwagen is leeg
-        </Text>
+      <View style={styles.emptyCart}>
+        <Text style={styles.title}>Uw winkelwagen is leeg</Text>
       </View>
     );
 
@@ -98,6 +89,17 @@ const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: '#fff',
     padding: 14,
+  },
+  emptyCart: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    color: 'black',
+    fontSize: 30,
+    marginBottom: 15,
+    fontWeight: 'bold',
   },
   item: {
     flexDirection: 'row',

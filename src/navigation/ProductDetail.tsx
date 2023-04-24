@@ -28,23 +28,18 @@ export const ProductDetail = ({ route }: any) => {
   const dimensions = Dimensions.get('window');
   const imageWidth = dimensions.width;
 
+  const productCart = {
+    id: route.params.id,
+    image: product.image_groups[0].images[0],
+    name: product.name,
+    price: product.price,
+  };
+
   const addToCart = () => {
-    const productCart = {
-      id: route.params.id,
-      image: product.image_groups[0].images[0],
-      name: product.name,
-      price: product.price,
-    };
     updateCart(productCart);
   };
 
   const addToWishlist = () => {
-    const productCart = {
-      id: route.params.id,
-      image: product.image_groups[0].images[0],
-      name: product.name,
-      price: product.price,
-    };
     updateWishlist(productCart);
   };
 
@@ -70,15 +65,7 @@ export const ProductDetail = ({ route }: any) => {
           );
         })}
       </ScrollView>
-      <View
-        style={{
-          backgroundColor: '#fff',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingHorizontal: 12,
-          paddingVertical: 12,
-        }}
-      >
+      <View style={styles.product}>
         <Text
           style={{
             flexDirection: 'column',
@@ -164,5 +151,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     borderRadius: 4,
     elevation: 3,
+  },
+  product: {
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 12,
+    paddingVertical: 12,
   },
 });

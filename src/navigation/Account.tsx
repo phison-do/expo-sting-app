@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Button, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { DetailsScreen } from './DetailScreen';
 import { useNavigation } from '@react-navigation/native';
 import { ACCOUNT_DATA } from './mocks';
@@ -24,23 +24,15 @@ export const AccountScreen = () => {
           })
         }
       >
-        <Text
-          style={{ fontSize: 18, paddingHorizontal: 12, paddingVertical: 12 }}
-        >
-          {item.name}
-        </Text>
-        <View
-          style={{
-            borderWidth: StyleSheet.hairlineWidth,
-            borderColor: '#ccc',
-          }}
-        />
+        <View style={styles.item}>
+          <Text style={styles.itemName}>{item.name}</Text>
+        </View>
       </Pressable>
     );
   };
 
   return (
-    <View style={{ flex: 1, padding: 24 }}>
+    <View style={styles.wrapper}>
       <FlatList data={ACCOUNT_DATA} renderItem={renderListItems} />
     </View>
   );
@@ -60,3 +52,21 @@ export const AccountStackScreen = () => {
     </AccountStack.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  wrapper: {
+    backgroundColor: '#fff',
+    flex: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 24,
+  },
+  item: {
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: '#ccc',
+  },
+  itemName: {
+    fontSize: 14,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+  },
+});

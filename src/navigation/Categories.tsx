@@ -22,16 +22,10 @@ export const CategoriesScreen = () => {
 
   if (loading) return <Loader />;
   if (!data) return null;
-  console.log(data.categories.data[0].categories);
+
   const renderListItems = ({ item }: any) => {
     return (
-      <ScrollView
-        style={{
-          borderBottomWidth: StyleSheet.hairlineWidth,
-          borderColor: '#ccc',
-          marginHorizontal: 12,
-        }}
-      >
+      <ScrollView style={styles.itemWrapper}>
         <Pressable
           onPress={() =>
             navigation.navigate('Lister', {
@@ -40,23 +34,14 @@ export const CategoriesScreen = () => {
             })
           }
         >
-          <Text
-            style={{ fontSize: 14, paddingHorizontal: 12, paddingVertical: 12 }}
-          >
-            {item.name}
-          </Text>
+          <Text style={styles.itemName}>{item.name}</Text>
         </Pressable>
       </ScrollView>
     );
   };
 
   return (
-    <View
-      style={{
-        backgroundColor: '#fff',
-        paddingVertical: 24,
-      }}
-    >
+    <View style={styles.wrapper}>
       <FlatList
         data={data.categories.data[0].categories}
         renderItem={renderListItems}
@@ -82,7 +67,6 @@ export const CategoriesStackScreen = () => {
           component={ListerPage}
           options={({ route }) => ({
             title: route.params.name,
-            headerBackTitle: 'Back',
           })}
         />
         <CategoriesStack.Screen
@@ -90,10 +74,26 @@ export const CategoriesStackScreen = () => {
           component={ProductDetail}
           options={({ route }) => ({
             title: route.params.name,
-            headerBackTitle: 'Back',
           })}
         />
       </CategoriesStack.Group>
     </CategoriesStack.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  wrapper: {
+    backgroundColor: '#fff',
+    paddingVertical: 24,
+  },
+  itemWrapper: {
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: '#ccc',
+    marginHorizontal: 12,
+  },
+  itemName: {
+    fontSize: 14,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+  },
+});
