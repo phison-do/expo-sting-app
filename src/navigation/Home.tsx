@@ -17,7 +17,22 @@ import { HOMESTACK_DATA } from './mocks';
 import { useQuery } from '@apollo/client';
 import { CATEGORIES_QUERY } from './../queries/categories';
 import { Loader } from '../components/loader';
+<<<<<<< HEAD
 import Carousel from 'react-native-snap-carousel';
+=======
+import { Carousel } from 'react-native-snap-carousel';
+const styles = StyleSheet.create({
+  image: {
+    width: '100%',
+  },
+  title: {
+    fontSize: 16,
+    paddingVertical: 12,
+    fontWeight: "bold",
+  },
+  
+});
+>>>>>>> 1e9c59b (fix errors)
 
 export const HomeScreen = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
@@ -27,6 +42,8 @@ export const HomeScreen = () => {
 
   if (loading) return <Loader />;
   if (!data) return null;
+
+  console.log(data);
 
   const renderProductItem = ({ item }: any) => {
     return (
@@ -42,9 +59,9 @@ export const HomeScreen = () => {
 
         <View style={{ height: 0, display: "flex", flexDirection: "row", paddingVertical: 4}}>
           {
-            (item?.colorSwatches.length > 0) && item?.colorSwatches?.map((color: any) => {
+            (item?.colorSwatches.length > 0) && item?.colorSwatches?.map((color: any, index:number) => {
               return (
-                <View style={{ borderRadius: 50, backgroundColor: `${color.color}`, height: 15, width: 15, marginRight: 8 }}/ >
+                <View key={index} style={{ borderRadius: 50, backgroundColor: `${color.color}`, height: 15, width: 15, marginRight: 8 }} />
               );
             })
           }
@@ -88,24 +105,24 @@ export const HomeScreen = () => {
           }
         
           {
-            item.type === "categories" &&  (
-            <View style={{ marginTop: 12 }}>
-              <SectionList style={{ flex: 1,flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-evenly', }}
+            item.type === "categories" && data?.categories?.data &&  (
+            <View style={{ paddingHorizontal: 12 }}>
+              <SectionList style={{ display: "flex", flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'  }}
                 sections={
                   [ 
                     { 
-                      title: "title", 
-                      data: data?.categories.data[0].categories,
+                      data: data?.categories?.data?.[0]?.categories || [],
                     }
                   ]}
-                renderItem={({item}) => (
-                  <Pressable               
-                    onPress={() => navigation.navigate('Details', { name: item.name, })}
-                    style={{ width: (width - 48) / 2, paddingVertical: 12, borderBottomWidth: StyleSheet.hairlineWidth, borderColor: '#ccc'}}
-                  >
-                    <Text style={{ textAlign: "center" }}>{item.name}</Text>
-                  </Pressable>
-                )}
+                renderItem={({item, index}) => {
+                  return <View style={{width: (width - 48) / 2, paddingVertical: 12, borderBottomWidth: StyleSheet.hairlineWidth, borderColor: '#ccc'}}>
+                    <Pressable               
+                      onPress={() => navigation.navigate('Details', { name: item.name, })}
+                    >
+                      <Text>{item.name}</Text>
+                    </Pressable>
+                  </View>
+                }}
               />
             </View>)
           } 
