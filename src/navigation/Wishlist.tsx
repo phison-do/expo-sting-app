@@ -25,7 +25,7 @@ export const WishlistScreen = ({ navigation }: any) => {
             fontWeight: 'bold',
           }}
         >
-          Uw winkelwagen is leeg
+          Uw wishlist is leeg
         </Text>
       </View>
     );

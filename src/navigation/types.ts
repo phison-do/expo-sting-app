@@ -15,6 +15,10 @@ export type HomeScreenNavigationProp = NativeStackNavigationProp<
 
 export type CategoriesStackNavigatorParamList = {
   CategoriesScreen: undefined;
+  subCategory: {
+    name: string;
+    category: string;
+  };
   Lister: {
     name: string;
     category: string;
@@ -26,6 +30,22 @@ export type CategoriesStackNavigatorParamList = {
 
 export type CategoriesScreenNavigationProp = NativeStackNavigationProp<
   CategoriesStackNavigatorParamList,
+  'subCategory'
+>;
+
+export type SubCategoriesStackNavigatorParamList = {
+  CategoriesScreen: undefined;
+  Lister: {
+    name: string;
+    category: string;
+  };
+  ProductDetail: {
+    name: string;
+  };
+};
+
+export type SubCategoriesScreenNavigationProp = NativeStackNavigationProp<
+  SubCategoriesStackNavigatorParamList,
   'Lister'
 >;
 

@@ -14,7 +14,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { ListerScreenNavigationProp } from './types';
 import { Loader } from '../components/loader';
 
-export const ListerPage = ({ route }) => {
+export const ListerPage = ({ route }: any) => {
   const { data, loading } = useQuery(LISTER_QUERY, {
     variables: { id: route.params.category },
   });
