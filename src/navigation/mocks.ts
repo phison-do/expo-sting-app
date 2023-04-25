@@ -4,13 +4,13 @@ export const HOMESTACK_DATA = [
     img: "https://edge.disstg.commercecloud.salesforce.com/dw/image/v2/BJRX_STG/on/demandware.static/-/Library-Sites-CostesLibrary/default/dwa32da659/Homepage%20assets/Mobile/01_costes_wk17_miami_mobile_01.jpg?sw=767",
   },
   {
-    type: "image",
+    type: "card",
     name: "New Arrivals",
     img: "https://edge.disstg.commercecloud.salesforce.com/dw/image/v2/BJRX_STG/on/demandware.static/-/Library-Sites-CostesLibrary/default/dwc4b58f6b/menu_flyout_desktop_02.jpg?sw=1000",
     height: 200,
   },
   {
-    type: "image",
+    type: "card",
     name: "Festival Season",
     img: "https://edge.disstg.commercecloud.salesforce.com/dw/image/v2/BJRX_STG/on/demandware.static/-/Library-Sites-CostesLibrary/default/dw6d73556f/menu_flyout_desktop_06.jpg?sw=1000",
     height: 200,
@@ -19,13 +19,13 @@ export const HOMESTACK_DATA = [
     type: "categories",
   },
   {
-    type: "image",
+    type: "card",
     name: "Swim Wear",
     img: "https://edge.disstg.commercecloud.salesforce.com/dw/image/v2/BJRX_STG/on/demandware.static/-/Library-Sites-CostesLibrary/default/dw5d70332b/menu_flyout_desktop_07.jpg?sw=1000",
     height: 200,
   },
   {
-    type: "image",
+    type: "card",
     name: "Broeken",
     img: "https://edge.disstg.commercecloud.salesforce.com/dw/image/v2/BJRX_STG/on/demandware.static/-/Library-Sites-CostesLibrary/default/dw0539aac1/menu_flyout_desktop_05.jpg?sw=1000",
     height: 200,
@@ -81,7 +81,7 @@ export const HOMESTACK_DATA = [
     ],
   },
   {
-    type: "image",
+    type: "card",
     name: "Blouses & Tops",
     img: "https://edge.disstg.commercecloud.salesforce.com/dw/image/v2/BJRX_STG/on/demandware.static/-/Library-Sites-CostesLibrary/default/dw5bf1e6d4/fly_out_blouses&tops_sf_640x374.jpg?sw=1000",
     height: 200,

@@ -17,37 +17,24 @@ import { HOMESTACK_DATA } from './mocks';
 import { useQuery } from '@apollo/client';
 import { CATEGORIES_QUERY } from './../queries/categories';
 import { Loader } from '../components/loader';
-<<<<<<< HEAD
 import Carousel from 'react-native-snap-carousel';
-=======
-import { Carousel } from 'react-native-snap-carousel';
-const styles = StyleSheet.create({
-  image: {
-    width: '100%',
-  },
-  title: {
-    fontSize: 16,
-    paddingVertical: 12,
-    fontWeight: "bold",
-  },
-  
-});
->>>>>>> 1e9c59b (fix errors)
 
 export const HomeScreen = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
-  const { data, loading } = useQuery(CATEGORIES_QUERY);
+  const { data, loading } = useQuery(CATEGORIES_QUERY, {
+    variables: { id: 'kleding' },
+  });
   const {height, width} = Dimensions.get('window');
   const ref = useRef(null);
 
   if (loading) return <Loader />;
   if (!data) return null;
 
-  console.log(data);
+  console.log(data?.categories?.data?.[0]?.categories);
 
   const renderProductItem = ({ item }: any) => {
     return (
-      <View style={{ marginRight: 12 }}>
+      <View style={ styles.carouselItemWrapper }>
         <View>
           <Image source={{ uri: item.image }} style={{ height: 420 }} />
         </View>
@@ -57,11 +44,12 @@ export const HomeScreen = () => {
           <Text>{ item.price }</Text>
         </View>
 
-        <View style={{ height: 0, display: "flex", flexDirection: "row", paddingVertical: 4}}>
+        <View style={ styles.colorSwatchWrapper }>
           {
             (item?.colorSwatches.length > 0) && item?.colorSwatches?.map((color: any, index:number) => {
               return (
-                <View key={index} style={{ borderRadius: 50, backgroundColor: `${color.color}`, height: 15, width: 15, marginRight: 8 }} />
+                <View key={index} style={[styles.colorSwatchItem, { backgroundColor: `${color.color}` }]
+                } />
               );
             })
           }
@@ -72,11 +60,7 @@ export const HomeScreen = () => {
   const renderListItems = ({ item }: any) => {
     return (
       <View
-        style={{
-          borderColor: '#ccc',
-          backgroundColor: '#FFF',
-          marginBottom: 12,
-        }}
+        style={ styles.homeItemsWrapper}
       >
           {
             item.type === "hero" && (item.img && 
@@ -87,8 +71,8 @@ export const HomeScreen = () => {
 
           {
             
-            item.type === "image" && (
-              <View style={{ paddingHorizontal: 12, paddingBottom: 0 }}>
+            item.type === "card" && (
+              <View style={ styles.cardWrapper }>
                 <Pressable
                 onPress={() =>
                   navigation.navigate('Details', {
@@ -97,9 +81,9 @@ export const HomeScreen = () => {
                 }
               >
                 { item.img && 
-                  <Image source={{ uri: item.img }} style={[styles.image, { height: item.height }]} />
+                  <Image source={{ uri: item.img }} style={[styles.cardImage, { height: item.height }]} />
                 }
-                <Text style={styles.title}>{item.name}</Text>
+                <Text style={styles.cardTitle}>{item.name}</Text>
                 </Pressable>
               </View>)
           }
@@ -107,7 +91,7 @@ export const HomeScreen = () => {
           {
             item.type === "categories" && data?.categories?.data &&  (
             <View style={{ paddingHorizontal: 12 }}>
-              <SectionList style={{ display: "flex", flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'  }}
+              <SectionList style={ styles.categoriesWrapper }
                 sections={
                   [ 
                     { 
@@ -115,7 +99,7 @@ export const HomeScreen = () => {
                     }
                   ]}
                 renderItem={({item, index}) => {
-                  return <View style={{width: (width - 48) / 2, paddingVertical: 12, borderBottomWidth: StyleSheet.hairlineWidth, borderColor: '#ccc'}}>
+                  return <View key={index} style={[styles.categoriesItem, {width: (width - 48) / 2 }]}>
                     <Pressable               
                       onPress={() => navigation.navigate('Details', { name: item.name, })}
                     >
@@ -129,13 +113,16 @@ export const HomeScreen = () => {
 
           {
             item.type === "carousel" &&  (
-            <View style={{ marginVertical: 12, paddingHorizontal: 12, height: 520 }}>
-              <View style={{ flex: 1, flexDirection: "row", justifyContent:"space-between", marginBottom: 12 }}>
+            <View style={ styles.carouselWrapper }>
+              <View style={ styles.carouselHeader }>
                 <View>
                   <Text style={{ fontWeight: "bold" }}>Bestsellers</Text>
                 </View>
                 <View>
+                  <Pressable
+                    onPress={() => console.log("Press alles tonen")}>
                   <Text style={{ fontWeight: "bold" }}>Alles tonen</Text>
+                  </Pressable>
                 </View>
               </View>
               <Carousel
@@ -156,7 +143,7 @@ export const HomeScreen = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#FFF" }}>
+    <View style={ styles.pageWrapper }>
       <FlatList data={HOMESTACK_DATA} renderItem={renderListItems} />
     </View>
   );
@@ -181,17 +168,62 @@ export const HomeStackScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  image: {
+  pageWrapper: {
+    flex: 1, 
+    backgroundColor: "#FFF"
+  },
+  homeItemsWrapper: {    
+    borderColor: '#ccc',
+    backgroundColor: '#FFF',
+    marginBottom: 12,
+  },
+  cardImage: {
     width: '100%',
     height: 200,
   },
-  title: {
+  cardTitle: {
     fontSize: 16,
     paddingVertical: 12,
     fontWeight: "bold",
   },
-  itemWrapper: {
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: '#ccc',
+  cardWrapper: {
+    paddingHorizontal: 12,
+    paddingBottom: 0
   },
+  categoriesWrapper: {
+    display: "flex",
+    flexDirection: 'row',
+    flexWrap: 'wrap', 
+    justifyContent: 'space-between'
+  },
+  categoriesItem: {
+    paddingVertical: 12,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: '#ccc'
+  },
+  carouselWrapper: {
+    marginVertical: 12,
+    paddingHorizontal: 12,
+    height: 520
+  },
+  carouselHeader: {
+    flex: 1, flexDirection: "row",
+    justifyContent:"space-between",
+    marginBottom: 12
+  },
+  carouselItemWrapper: { 
+    marginRight: 12
+  },
+  colorSwatchWrapper: {
+    height: 0,
+    display: "flex",
+    flexDirection: "row",
+    paddingVertical: 4
+  },
+  colorSwatchItem: {
+    borderRadius: 50, 
+    height: 15,
+    width: 15,
+    marginRight: 8 
+  }
 });
