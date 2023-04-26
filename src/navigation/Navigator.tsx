@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AccountStackScreen } from './Account';
 import { CartStackScreen } from './Cart';
@@ -14,13 +14,21 @@ import CategoriesIcon from '../../assets/icons/categories.svg';
 import LogoBlack from '../../assets/logo-black.svg';
 import { useCart } from '../context/cartData';
 
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: '#ffffff',
+  },
+};
+
 const Tab = createBottomTabNavigator();
 
 export const Navigator = () => {
   const { cartData, wishlistData } = useCart();
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       <Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
         <Tab.Screen
           name='Home'
