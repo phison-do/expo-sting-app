@@ -1,16 +1,16 @@
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export type HomeStackNavigatorParamList = {
   HomeScreen: undefined;
-  Details: {
+  Lister: {
     name: string;
-    img?: string;
+    category: string;
   };
 };
 
 export type HomeScreenNavigationProp = NativeStackNavigationProp<
   HomeStackNavigatorParamList,
-  'Details'
+  "Lister"
 >;
 
 export type CategoriesStackNavigatorParamList = {
@@ -30,7 +30,7 @@ export type CategoriesStackNavigatorParamList = {
 
 export type CategoriesScreenNavigationProp = NativeStackNavigationProp<
   CategoriesStackNavigatorParamList,
-  'subCategory'
+  "subCategory"
 >;
 
 export type SubCategoriesStackNavigatorParamList = {
@@ -46,7 +46,7 @@ export type SubCategoriesStackNavigatorParamList = {
 
 export type SubCategoriesScreenNavigationProp = NativeStackNavigationProp<
   SubCategoriesStackNavigatorParamList,
-  'Lister'
+  "Lister"
 >;
 
 export type ListerStackNavigatorParamList = {
@@ -59,7 +59,7 @@ export type ListerStackNavigatorParamList = {
 
 export type ListerScreenNavigationProp = NativeStackNavigationProp<
   ListerStackNavigatorParamList,
-  'ProductDetail'
+  "ProductDetail"
 >;
 
 export type AccountStackNavigatorParamList = {
@@ -71,7 +71,7 @@ export type AccountStackNavigatorParamList = {
 
 export type AccountScreenNavigationProp = NativeStackNavigationProp<
   AccountStackNavigatorParamList,
-  'Details'
+  "Details"
 >;
 
 export type ProductDetailStackNavigatorParamList = {
@@ -84,7 +84,7 @@ export type ProductDetailStackNavigatorParamList = {
 
 export type ProductDetailScreenNavigationProp = NativeStackNavigationProp<
   ProductDetailStackNavigatorParamList,
-  'ProductDetail'
+  "ProductDetail"
 >;
 
 export type ImageType = {

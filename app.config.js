@@ -7,4 +7,10 @@ export default ({ config }) => ({
     resizeMode: "contain",
     backgroundColor: "#ffffff",
   },
+  "plugins": [
+    "react-native-vision-camera"
+  ],
+  "android": {
+    "package": "com.anonymous.sting"
+  }
 });

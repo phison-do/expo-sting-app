@@ -5,13 +5,15 @@ export const HOMESTACK_DATA = [
   },
   {
     type: "card",
-    name: "New Arrivals",
+    name: "Special Offers",
+    id: "specialoffers",
     img: "https://edge.disstg.commercecloud.salesforce.com/dw/image/v2/BJRX_STG/on/demandware.static/-/Library-Sites-CostesLibrary/default/dwc4b58f6b/menu_flyout_desktop_02.jpg?sw=1000",
     height: 200,
   },
   {
     type: "card",
     name: "Festival Season",
+    id: "festival",
     img: "https://edge.disstg.commercecloud.salesforce.com/dw/image/v2/BJRX_STG/on/demandware.static/-/Library-Sites-CostesLibrary/default/dw6d73556f/menu_flyout_desktop_06.jpg?sw=1000",
     height: 200,
   },
@@ -21,18 +23,21 @@ export const HOMESTACK_DATA = [
   {
     type: "card",
     name: "Swim Wear",
+    id: "swimwear",
     img: "https://edge.disstg.commercecloud.salesforce.com/dw/image/v2/BJRX_STG/on/demandware.static/-/Library-Sites-CostesLibrary/default/dw5d70332b/menu_flyout_desktop_07.jpg?sw=1000",
     height: 200,
   },
   {
     type: "card",
     name: "Broeken",
+    id: "broeken",
     img: "https://edge.disstg.commercecloud.salesforce.com/dw/image/v2/BJRX_STG/on/demandware.static/-/Library-Sites-CostesLibrary/default/dw0539aac1/menu_flyout_desktop_05.jpg?sw=1000",
     height: 200,
   },
   {
     type: "carousel",
     name: "Bestsellers",
+    id: "bestsellers",
     showButton: true,
     items: [
       {
@@ -83,6 +88,7 @@ export const HOMESTACK_DATA = [
   {
     type: "card",
     name: "Blouses & Tops",
+    id: "blouses-tops",
     img: "https://edge.disstg.commercecloud.salesforce.com/dw/image/v2/BJRX_STG/on/demandware.static/-/Library-Sites-CostesLibrary/default/dw5bf1e6d4/fly_out_blouses&tops_sf_640x374.jpg?sw=1000",
     height: 200,
   },

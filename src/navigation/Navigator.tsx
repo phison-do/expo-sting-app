@@ -12,12 +12,22 @@ import CartIcon from '../../assets/icons/cart.svg';
 import AccountIcon from '../../assets/icons/account.svg';
 import CategoriesIcon from '../../assets/icons/categories.svg';
 import LogoBlack from '../../assets/logo-black.svg';
+import ScannerBlack from '../../assets/icons/barcode.svg';
 import { useCart } from '../context/cartData';
+import { Pressable } from 'react-native';
+import React, { useState } from 'react';
+import { BarcodeCodeScreen } from '../components/barcode';
 
 const Tab = createBottomTabNavigator();
 
 export const Navigator = () => {
   const { cartData, wishlistData } = useCart();
+
+  const [ camera, setCamera ]= useState(false);
+
+  if(camera) {
+    return <BarcodeCodeScreen />
+  }
 
   return (
     <NavigationContainer>
@@ -30,6 +40,11 @@ export const Navigator = () => {
             tabBarIcon: ({ focused }) => (
               <Logo width={24} color={focused ? '#18181B' : '#ccc'} />
             ),
+            headerRight: () => (
+              <Pressable onPress={() => setCamera(true)}>
+                <ScannerBlack width={24} color={'#18181B'} style={{ marginRight: 12 }} />  
+              </Pressable>
+            )
           }}
         />
         <Tab.Screen
